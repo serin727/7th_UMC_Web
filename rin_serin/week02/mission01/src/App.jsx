@@ -34,7 +34,7 @@ function App() {
   const [text,setText] = useState('');
 
   //수정 하는 버튼
-  const [isEditing, setIsEditing] = useState('');
+  const [editingId, setEditingId] = useState(0);
   const [editText, setEditText] = useState('')
 
   //추가하기
@@ -54,10 +54,11 @@ function App() {
 
   //수정하기
   const updateTodo = (id, text) => {
+    console.log(id)
     setTodos((prev) => 
-      prev.map((item) => item.id === id? {...item, task : text}:{item})
-    )
-    setIsEditing('')
+      prev.map((item) => item.id === id? {...item, task : text}:item)
+    );
+    setEditingId('');
   };
 
   //새로고침(렌더링) 방지
@@ -84,26 +85,26 @@ function App() {
       {todos.map((todo)=>(
         <EachTodo key={todo.id}  style={{display:'flex', gap:'2px'}}>
           {/* 수정이 아닐 때 */}
-          {isEditing!== todo.id && (
+          {editingId!== todo.id && (
             <div key={todo.id} style={{display:'flex', gap:'5px'}}>
               <p>{todo.id}.</p>
               <p>{todo.task}</p>
             </div>
           )}
           {/* 수정 중 상태일 때 */}
-          {isEditing=== todo.id && (
+          {editingId=== todo.id && (
             <div key={todo.id} style={{display:'flex', alignItems:'center', gap:'5px'}}>
               <p>{todo.id}.</p>
               <InputBox width="100%" value={editText} onChange={(e) => setEditText(e.target.value)}/>
             </div>
           )}
         <Button onClick={()=> deleteTodo(todo.id)} backgroundColor = "#ff9b9b" buttonName= '삭제하기'/>
-        {isEditing === todo.id ?(
+        {editingId === todo.id ?(
           // isEditiong === todo.id 수정 중인 상태
-          <Button onClick={() => updateTodo(isEditing,editText)} backgroundColor = "#4abdff" buttonName= '수정완료'/>
+          <Button onClick={() => updateTodo(editingId,editText)} backgroundColor = "#4abdff" buttonName= '수정완료'/>
         ) :(
           // isEditiong !== todo.id 수정 아닌 상태
-          <Button onClick={() => setIsEditing(todo.id)} backgroundColor = "#e4e4e4" buttonName= '수정하기'/>
+          <Button onClick={() => setEditingId(todo.id)} backgroundColor = "#e4e4e4" buttonName= '수정하기'/>
         )}
       </EachTodo>
       ))}
