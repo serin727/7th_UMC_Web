@@ -4,6 +4,8 @@ import { MOVIES } from "./Movies";
 function EachMovie (){
     const datas = MOVIES;
     const dataCharts = datas.results;
+    // const dataImg = dataCharts.poster_path;
+    // console.log(dataCharts);
 
     const [hoverOn, setHoveron] = useState(null);
     console.log(hoverOn);
@@ -11,14 +13,15 @@ function EachMovie (){
     return(
         <>
             {dataCharts.map((movie, index)=>(
-                <div key={index} style={{width: '200px', height: '300px', margin: '10px'}}>
+                <div 
+                    key={index} 
+                    style={{width: '200px', height: '300px', margin: '10px'}}
+                    onMouseEnter={() => setHoveron(index)}
+                    onMouseLeave={() => setHoveron()}>
                     <img 
-                    onMouseEnter={()=>setHoveron(index)}
-                    onMouseLeave={()=>setHoveron(null)}
                     src={"https://image.tmdb.org/t/p/original" +movie.poster_path} 
                     style={{ width: '200px', height: '300px', margin: '10px', 
                         borderRadius:'12px', transition: 'opacity 0.3s ease-in-out', 
-                        // maskImage: hoverOn === index && ('#212121')
                     }}
                     /> 
                     {hoverOn === index && (
@@ -32,7 +35,7 @@ function EachMovie (){
                                 backgroundColor: '#212121',
                                 opacity: 0.5,
                                 borderRadius: '12px',
-                                zIndex: 0
+                                zIndex: 1
                             }}
                         ></div>
                     )}
