@@ -4,8 +4,6 @@ import { MOVIES } from "./Movies";
 function EachMovie (){
     const datas = MOVIES;
     const dataCharts = datas.results;
-    // const dataImg = dataCharts.poster_path;
-    // console.log(dataCharts);
 
     const [hoverOn, setHoveron] = useState(null);
     console.log(hoverOn);

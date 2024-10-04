@@ -397,3 +397,4 @@ export const MOVIES = {
     "total_pages": 5,
     "total_results": 83
   }
+  
